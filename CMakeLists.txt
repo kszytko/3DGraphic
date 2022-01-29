@@ -1,7 +1,7 @@
 ﻿# CMakeList.txt: projekt CMake dla elementu 3DGraphic, dołącz źródło i zdefiniuj
 # tutaj logikę specyficzną dla projektu.
 #
-cmake_minimum_required(VERSION 2.8.2)
+cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -42,9 +42,13 @@ project ("3DGraphic")
 
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp vector.cpp)
-#Temp test file
-add_executable(${PROJECT_NAME}-ut vectorUnitTest.cpp)
 
-target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+add_library(lib STATIC vector.cpp)
+
+add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME}-ut vector-UnitTest.cpp)
+
+target_link_libraries(${PROJECT_NAME} lib)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main lib)
+
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
