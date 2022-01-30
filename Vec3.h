@@ -1,5 +1,4 @@
 #pragma once
-#include "Mat4.h"
 
 struct Vec3 {
 	float x = 0;
@@ -33,13 +32,13 @@ struct Vec3 {
 		};
 	}
 
-	Vec3& operator *= (const Mat4& m) {
-		return *this = m * *this;
-	}
-
-	Vec3 operator * (const Mat4& m) const {
-		return m * *this;
-	}
+	//Vec3& operator *= (const Mat4& m) {
+	//	return *this = m * (*this);
+	//}
+	//
+	//Vec3 operator * (const Mat4& m) const {
+	//	return m * (*this);
+	//}
 
 
 	static const Vec3 m_UnitX;
