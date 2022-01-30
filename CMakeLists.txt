@@ -43,12 +43,18 @@ project ("3DGraphic")
 enable_testing()
 
 
-add_library(lib STATIC "Vec3.cpp" "Mat4.h")
+#add_library(header_only_lib  STATIC "Vec3.h" "Mat4.h" "Triangle.h")
 
 add_executable(${PROJECT_NAME} main.cpp)
 add_executable(${PROJECT_NAME}-ut vector-UnitTest.cpp)
 
-target_link_libraries(${PROJECT_NAME} lib)
-target_link_libraries(${PROJECT_NAME}-ut gtest_main lib)
+#target_link_libraries(${PROJECT_NAME} lib)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+
+target_precompile_headers(${PROJECT_NAME}
+  PUBLIC
+    olcPixelGameEngine.h
+)
+
 
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
