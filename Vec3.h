@@ -1,17 +1,5 @@
 #pragma once
-
-
-struct Matrix4 {
-	float m[4][4];
-
-	Matrix4() {
-		m[0][0] = 0; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0;
-		m[1][0] = 0; m[1][1] = 0; m[1][2] = 0; m[1][3] = 0;
-		m[2][0] = 0; m[2][1] = 0; m[2][2] = 0; m[2][3] = 0;
-		m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 0;
-	}
-
-};
+#include "Mat4.h"
 
 struct Vec3 {
 	float x = 0;
@@ -45,19 +33,13 @@ struct Vec3 {
 		};
 	}
 
-	Vec3 multiplyByMatrix(const Matrix4& rhs) const {
-		float x = rhs.m[0][0] * this->x + rhs.m[1][0] * this->y + rhs.m[2][0] * this->z + rhs.m[3][0];
-		float y = rhs.m[0][1] * this->x + rhs.m[1][1] * this->y + rhs.m[2][1] * this->z + rhs.m[3][1];
-		float z = rhs.m[0][2] * this->x + rhs.m[1][2] * this->y + rhs.m[2][2] * this->z + rhs.m[3][2];
-		float w = rhs.m[0][3] * this->x + rhs.m[1][3] * this->y + rhs.m[2][3] * this->z + rhs.m[3][3];
-
-		if (w != 0) {
-			x /= w; y /= w; z /= w;
-		}
-
-		return { x,y,z };
+	Vec3& operator *= (const Mat4& m) {
+		return *this = m * *this;
 	}
 
+	Vec3 operator * (const Mat4& m) const {
+		return m * *this;
+	}
 
 	static const Vec3 m_UnitX;
 	static const Vec3 m_UnitY;
