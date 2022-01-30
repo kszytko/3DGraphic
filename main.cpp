@@ -1,8 +1,9 @@
 #define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
-#include "vector.h"
 
-
+#include "Vec3.h"
+#include "Mat4.h"
+#include "Triangle.h"
 
 
 struct mesh {
@@ -66,22 +67,22 @@ public:
 		matProj.m[1][0] = 0;
 		matProj.m[2][0] = 0;
 		matProj.m[3][0] = 0.5f * (float)ScreenWidth();
-
+		
 		matProj.m[0][1] = 0;
 		matProj.m[1][1] = 0.5f * (float)ScreenHeight();
 		matProj.m[2][1] = 0;
 		matProj.m[3][1] = 0.5f * (float)ScreenHeight();
-
+		
 		matProj.m[0][2] = 0;
 		matProj.m[1][2] = 0;
 		matProj.m[2][2] = 1;
 		matProj.m[3][2] = 0;
-
+		
 		matProj.m[0][3] = 0;
 		matProj.m[1][3] = 0;
 		matProj.m[2][3] = 0;
 		matProj.m[3][3] = 1;
-
+		
 		matResize.m[0][0] = 1;
 		matResize.m[1][0] = 0;
 		matResize.m[2][0] = 0;
