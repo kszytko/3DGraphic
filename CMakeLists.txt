@@ -43,7 +43,7 @@ project ("3DGraphic")
 enable_testing()
 
 
-add_library(lib STATIC vector.cpp)
+add_library(lib STATIC "Vec3.cpp" "Mat4.h")
 
 add_executable(${PROJECT_NAME} main.cpp)
 add_executable(${PROJECT_NAME}-ut vector-UnitTest.cpp)
