@@ -85,6 +85,15 @@ public:
 		};
 	}
 
+	static Mat4 Identity() {
+		return{
+				1.0f,	0.0f,	0.0f,	0.0f,
+				0.0f,	1.0f,	0.0f,	0.0f,
+				0.0f,	0.0f,	1.0f,	0.0f,
+				0.0f,	0.0f,	0.0f,	1.0f
+		};
+	}
+
 public:
 	float cells[4][4];
 
