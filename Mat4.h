@@ -1,3 +1,4 @@
+#pragma once
 #include "Vec3.h"
 
 class Mat4 {
