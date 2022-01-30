@@ -41,6 +41,7 @@ struct Vec3 {
 		return m * *this;
 	}
 
+
 	static const Vec3 m_UnitX;
 	static const Vec3 m_UnitY;
 	static const Vec3 m_UnitZ;
