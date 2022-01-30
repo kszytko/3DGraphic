@@ -18,7 +18,7 @@ public:
 
 private:
 	Cube cube;
-	Mat4 matProj, matRot, matTran;
+	Mat4 matProj, matRot, matTran, matRotTran;
 
 
 	float fTheta_X = 0.0f;
@@ -55,8 +55,34 @@ public:
 		Clear(olc::BLACK);
 
 
+		// Standard FPS Control scheme, but turn instead of strafe
+		if (GetKey(olc::Q).bHeld)
+			fTheta_X -= 2.0f * fElapsedTime;
+		if (GetKey(olc::W).bHeld)
+			fTheta_X += 2.0f * fElapsedTime;
+		if (GetKey(olc::A).bHeld)
+			fTheta_Y -= 2.0f * fElapsedTime;
+		if (GetKey(olc::S).bHeld)
+			fTheta_Y += 2.0f * fElapsedTime;
+		if (GetKey(olc::Z).bHeld)
+			fTheta_Z -= 2.0f * fElapsedTime;
+		if (GetKey(olc::X).bHeld)
+			fTheta_Z += 2.0f * fElapsedTime;
+
+		if (GetKey(olc::UP).bHeld)
+			fPos_Y += 2.0f * fElapsedTime;
+		if (GetKey(olc::DOWN).bHeld)
+			fPos_Y -= 2.0f * fElapsedTime;
+		if (GetKey(olc::LEFT).bHeld)
+			fPos_X -= 2.0f * fElapsedTime;
+		if (GetKey(olc::RIGHT).bHeld)
+			fPos_X += 2.0f * fElapsedTime;
+
+
+
 		matRot = Mat4::RotationX(fTheta_X) * Mat4::RotationY(fTheta_Y) * Mat4::RotationZ(fTheta_Z);
 		matTran = Mat4::Translation(fPos_X, fPos_Y, fPos_Z);
+		matRotTran = matRot * matTran;
 
 		Draw(cube);
 
@@ -72,8 +98,8 @@ public:
 	void ProcessVertices(const std::vector<Vec3>& vertices, const std::vector<size_t>& indices) {
 		std::vector<Vec3> verticesOut (vertices.size());
 
-		std::transform(vertices.begin(), vertices.end(), verticesOut.begin(), [](auto& v) {
-			return v * matRot * matTran;
+		std::transform(vertices.begin(), vertices.end(), verticesOut.begin(), [this](auto& v) {
+			return matRot * matTran * v;
 			});
 
 
@@ -98,9 +124,9 @@ public:
 
 		Triangle tris(v0, v1, v2);
 
-		tris.p0 *= matProj;
-		tris.p1 *= matProj;
-		tris.p2 *= matProj;
+		tris.p0 = matProj * tris.p0;
+		tris.p1 = matProj * tris.p1;
+		tris.p2 = matProj * tris.p2;
 
 		DrawTriangleToScreen(tris);
 	}

@@ -1,9 +1,9 @@
 #pragma once
 #include "Vec3.h"
+#include <cmath>
 
 class Mat4 {
 public:
-
 	Vec3 operator*(const Vec3& v) const {
 		float x = cells[0][0] * v.x + cells[1][0] * v.y + cells[2][0] * v.z + cells[3][0];
 		float y = cells[0][1] * v.x + cells[1][1] * v.y + cells[2][1] * v.z + cells[3][1];
